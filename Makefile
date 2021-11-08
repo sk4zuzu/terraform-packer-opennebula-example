@@ -17,7 +17,7 @@ export
         guest \
         destroy \
         clean \
-		ssh ssh-guest
+        ssh ssh-guest
 
 all:
 
@@ -40,10 +40,10 @@ opennebula: opennebula-disk
 guest: opennebula
 	@cd $(SELF)/terraform/guest/ && $(TERRAFORM) init
 	@cd $(SELF)/terraform/guest/ && if $(TERRAFORM) state list | wc -l | (read LC && [[ $$LC -lt 1 ]]); then \
-		$(TERRAFORM) apply -var first_run=true; \
-		$(TERRAFORM) apply; \
+	  $(TERRAFORM) apply -var first_run=true; \
+	  $(TERRAFORM) apply; \
 	else \
-		$(TERRAFORM) apply; \
+	  $(TERRAFORM) apply; \
 	fi
 
 destroy:
