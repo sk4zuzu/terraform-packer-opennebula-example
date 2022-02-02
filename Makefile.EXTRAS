@@ -3,16 +3,12 @@ SELF  := $(patsubst %/,%,$(dir $(abspath $(firstword $(MAKEFILE_LIST)))))
 
 PLUGIN_DIR := $(HOME)/.local/share/terraform/plugins
 
-PROVIDER_LIBVIRT_VERSION ?= 0.6.11
-PROVIDER_LIBVIRT_DIR     := $(PLUGIN_DIR)/registry.terraform.io/dmacvicar/libvirt/$(PROVIDER_LIBVIRT_VERSION)/linux_amd64
-
 PROVIDER_OPENNEBULA_VERSION ?= 0.3.0
 PROVIDER_OPENNEBULA_DIR     := $(PLUGIN_DIR)/registry.terraform.io/sk4zuzu/opennebula/$(PROVIDER_OPENNEBULA_VERSION)/linux_amd64
 
 GOPATH := $(HOME)/go
 
 TARGETS := \
-$(PROVIDER_LIBVIRT_DIR)/terraform-provider-libvirt_v$(PROVIDER_LIBVIRT_VERSION) \
 $(PROVIDER_OPENNEBULA_DIR)/terraform-provider-opennebula_v$(PROVIDER_OPENNEBULA_VERSION)
 
 define GITHUB_RELEASE_BUILD_AND_INSTALL
@@ -41,9 +37,6 @@ all: $(TARGETS)
 
 clean:
 	-rm -f $(TARGETS)
-
-$(eval \
-	$(call GITHUB_RELEASE_BUILD_AND_INSTALL,dmacvicar,terraform-provider-libvirt,$(PROVIDER_LIBVIRT_VERSION),$(PROVIDER_LIBVIRT_DIR)))
 
 $(eval \
 	$(call GITHUB_RELEASE_BUILD_AND_INSTALL,sk4zuzu,terraform-provider-opennebula,$(PROVIDER_OPENNEBULA_VERSION),$(PROVIDER_OPENNEBULA_DIR)))
